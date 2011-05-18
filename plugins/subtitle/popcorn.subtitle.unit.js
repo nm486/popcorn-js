@@ -36,7 +36,7 @@ test("Popcorn Subtitle Plugin", function () {
       languagesrc: "language",
       accessibilitysrc: "accessibility"
     } )
-        .subtitle({
+  .subtitle({
       start: 3,
       end: 4,
       text: 'this is the third subtitle of 2011',
