@@ -51,7 +51,7 @@ test("API", function () {
 
 test("Utility", function () {
 
-  expect(10);
+  expect(11);
   //  TODO: comprehensive tests for these utilities
 
   equals( typeof Popcorn.forEach, "function" , "Popcorn.forEach is a provided static function");
@@ -64,6 +64,7 @@ test("Utility", function () {
   equals( typeof Popcorn.position, "function" , "Popcorn.position is a provided static function");
   equals( typeof Popcorn.disable, "function" , "Popcorn.disable is a provided static function");
   equals( typeof Popcorn.enable, "function" , "Popcorn.enable is a provided static function");
+  equals( typeof Popcorn.p.init, "function" , "Popcorn.p.init is a function");
 });
 
 test("Standard Time Strings" , function () {
@@ -414,9 +415,11 @@ test("roundTime", function () {
 
   popped.play().pause().currentTime( 0.98 );
 
-  equals( 1, popped.roundTime(), ".roundTime() returns 1 when currentTime is 0.98s" );
-
-
+  equals( popped.roundTime(), 1, ".roundTime() returns 1 when currentTime is 0.98s" );
+  
+  popped.play().pause().currentTime( 1.035 );
+  console.log (popped.roundTime() + " roundtime");
+  equals( popped.roundTime(), 2, ".roundTime() returns 2 when currentTime is 1.035s" );
 });
 
 
@@ -734,7 +737,7 @@ test("Real", function () {
 
 test("Custom", function () {
 
-  var expects = 1,
+  var expects = 3,
       count = 0;
 
   expect(expects);
@@ -748,13 +751,26 @@ test("Custom", function () {
 
   p.listen("eventz0rz", function ( event ) {
 
-    ok( true, "Custom event fired" );
+    ok( true, "Custom event fired (eventz0rz)" );
+    plus();
+
+  });
+  p.listen("eventz0rz2", function ( event ) {
+
+    ok( true, "Custom event fired (eventz0rz2)" );
+    plus();
+
+  });
+  p.listen("eventz0rz3", function ( event ) {
+
+    ok( true, "Custom event fired (eventz0rz3)" );
     plus();
 
   });
 
   p.trigger("eventz0rz");
-
+  p.trigger("eventz0rz2");
+  p.trigger("eventz0rz3");
 
 
 });
