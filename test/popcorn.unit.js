@@ -673,6 +673,7 @@ test("Simulated", function () {
         plus();
 
         completed.push(name);
+        p.unlisten(name);
       }
 
 
@@ -809,7 +810,7 @@ test("Manifest", function () {
 
 
   var p = Popcorn("#video"),
-      expects = 5,
+      expects = 8,
       run = 1,
       count   = 0;
 
@@ -872,6 +873,15 @@ test("Manifest", function () {
   plus();
 
   // add more tests
+
+  equal ( typeof Popcorn.manifest.footnote === "object", true, "The footnote was inserted into the manifest correctly" );
+  plus();
+
+  equal ( typeof Popcorn.manifest.footnote.about === "object" , true , "The footnote contains about object" );
+  plus();
+  
+  equal ( typeof Popcorn.manifest.footnote.options === "object", true , "The footnote contains an options object" );
+  plus();
 
   p.footnote({});
 
