@@ -511,29 +511,31 @@ test( "Popcorn.extend", function () {
         "key22" : 9002,
         "key23" : function() { return false; }
       },
-      obj3 = Popcorn.extend(dest, obj1);
+      prop;
+  
+  Popcorn.extend( dest, obj1 );
   
   for ( prop in obj1 ) {
-    equal ( dest.hasOwnProperty( prop ), true, "{dest} has property: " + prop );
+    equal( dest.hasOwnProperty( prop ), true, "{dest} has property: " + prop );
   }
   
-  equal ( typeof dest["key13"], "function","dest[key13] is a function");
+  equal( typeof dest[ "key13" ], "function", "dest[key13] is a function" );
   
   dest = {};
   
-  obj3 = Popcorn.extend( dest, obj1, obj2 );
+  Popcorn.extend( dest, obj1, obj2 );
   
-  for ( var prop in obj1 ) {
-    equal ( dest.hasOwnProperty( prop ), true, "{dest} has property: " + prop + ", when extending 2 objects" );
+  for ( prop in obj1 ) {
+    equal( dest.hasOwnProperty( prop ), true, "{dest} has property: " + prop + ", when extending 2 objects" );
   }
 
-  for ( var prop in obj2 ) {
-    equal ( dest.hasOwnProperty( prop ), true, "{dest} has property: " + prop + ", when extending 2 objects" );
+  for ( prop in obj2 ) {
+    equal( dest.hasOwnProperty( prop ), true, "{dest} has property: " + prop + ", when extending 2 objects" );
   }
   
-  equal ( typeof dest["key13"], "function","dest[key13] is a function");
+  equal( typeof dest[ "key13" ], "function", "dest[key13] is a function" );
   
-  equal ( typeof dest["key23"], "function","dest[key23] is a function");
+  equal( typeof dest[ "key23" ], "function", "dest[key23] is a function" );
   
 });
 
@@ -565,7 +567,7 @@ test( "Popcorn.events", function() {
 
   ok( okay, "Native events are correctly being handled");
 
-  equals( typeof Popcorn.Events.Natives, "string", "Popcorn.Events.Natives is an object" );
+  equals( typeof Popcorn.Events.Natives, "string", "Popcorn.Events.Natives is an string" );
   equals( typeof Popcorn.events, "object", "Popcorn.events is an object" );
 
   Popcorn.forEach( eventsReturned, function ( e ) {
