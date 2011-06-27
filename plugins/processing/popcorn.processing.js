@@ -139,11 +139,35 @@
       },
 
       start: function( event, options ) {
-        toggle.call( this, true, options );
+        var that = this,
+        
+        checkCodeReady = function() {
+          if ( options.codeReady ) {
+            toggle.call( that, true, options );
+            return;
+          }
+          
+          setTimeout( checkCodeReady, 5 );
+          
+        };
+        
+        checkCodeReady();
       },
 
       end: function( event, options ) {
-        toggle.call( this, false, options );
+        var that = this, 
+        
+        checkCodeReady = function() {
+          if ( options.codeReady ) {
+            toggle.call( that, false, options );
+            return;
+          }
+        
+          setTimeout( checkCodeReady, 5 );
+        
+        };
+        
+        checkCodeReady();
       },
       
       _teardown: function( options ) {
