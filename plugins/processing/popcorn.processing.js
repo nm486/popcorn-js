@@ -35,7 +35,7 @@
 
       if ( !window.Processing ) {
 
-        Popcorn.getScript( "http://processingjs.org/content/download/processing-js-1.2.1/processing-1.2.1.js" );
+        Popcorn.getScript( "http://processingjs.org/content/download/processing-js-1.2.1/processing-1.2.1.min.js" );
       }
 
       options.parentTarget = document.getElementById( options.target );
