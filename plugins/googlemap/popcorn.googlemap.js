@@ -7,9 +7,9 @@ var googleCallback;
     _mapFired = false,
     _mapLoaded = false,
     geocoder, loadMaps;
-  //google api callback 
+  //google api callback
   googleCallback = function (data) {
-    // ensure all of the maps functions needed are loaded 
+    // ensure all of the maps functions needed are loaded
     // before setting _maploaded to true
     if (typeof google !== "undefined" && google.maps && google.maps.Geocoder && google.maps.LatLng) {
       geocoder = new google.maps.Geocoder();
@@ -79,12 +79,6 @@ var googleCallback;
     var newdiv, map, location,
         target = document.getElementById( options.target );
 
-    // if this is the firest time running the plugins
-    // call the function that gets the sctipt
-    if (!_mapFired) {
-      loadMaps();
-    }
-
     // create a new div this way anything in the target div is left intact
     // this is later passed on to the maps api
     newdiv = document.createElement("div");
@@ -132,9 +126,21 @@ var googleCallback;
         }
       };
 
-    isMapReady();
+
 
     return {
+
+    	_setup: function() {
+
+    		// if this is the firest time running the plugins
+    		// call the function that gets the script
+				if (!_mapFired) {
+					loadMaps();
+				}
+
+				isMapReady();
+    	},
+
       /**
        * @member webpage
        * The start function will be executed when the currentTime
@@ -171,7 +177,7 @@ var googleCallback;
               options.pitch = +options.pitch;
             }
 
-						
+
 
             if ( options.type === "STREETVIEW" ) {
               // Switch this map into streeview mode
@@ -187,7 +193,7 @@ var googleCallback;
                   }
                 })
               );
-  
+
               //  Function to handle tweening using a set timeout
               var tween = function( rM, t ) {
 
@@ -195,7 +201,7 @@ var googleCallback;
                 setTimeout(function() {
 
                   var current_time = that.media.currentTime;
-    
+
                   //  Checks whether this is a generated route or not
                   if ( typeof options.tween === "object" ) {
 
@@ -234,16 +240,16 @@ var googleCallback;
                           heading: computeHeading( rM[ k ], rM[ k + 1 ] ) || 0,
                           zoom: options.zoom,
                           pitch: options.pitch || 0
-                        }); 
+                        });
                         sView2.setPosition( checkpoints[ k ] );
                       }
                     }
 
                     tween( checkpoints, options.interval );
-                  }   
+                  }
                 }, t );
               };
-              
+
               //  Determines if we should use hardcoded values ( using options.tween ),
               //  or if we should use a start and end location and let google generate
               //  the route for us
@@ -252,7 +258,7 @@ var googleCallback;
               //  Creating another variable to hold the streetview map for tweening,
               //  Doing this because if there was more then one streetview map, the tweening would sometimes appear in other maps
               var sView2 = sView;
-                
+
                 //  Create an array to store all the lat/lang values along our route
                 var checkpoints = [];
 
@@ -280,13 +286,13 @@ var googleCallback;
                 });
 
                 var showSteps = function ( directionResult, that ) {
-                
+
                   //  Push new google map lat and lng values into an array from our list of lat and lng values
                   var routes = directionResult.routes[ 0 ].overview_path;
                   for ( var j = 0, k = routes.length; j < k; j++ ) {
                     checkpoints.push( new google.maps.LatLng( routes[ j ].lat(), routes[ j ].lng() ) );
-                  }   
-                  
+                  }
+
                   //  Check to make sure the interval exists, if not, set to a default of 1000
                   options.interval = options.interval || 1000;
                   tween( checkpoints, 10 );
@@ -298,7 +304,7 @@ var googleCallback;
                 var sView3 = sView;
 
                 for ( var i = 0, l = options.tween.length; i < l; i++ ) {
-                 
+
                   //  Make sure interval exists, if not, set to 1000
                   options.tween[ i ].interval = options.tween[ i ].interval || 1000;
                   tween( options.tween, 10 );
