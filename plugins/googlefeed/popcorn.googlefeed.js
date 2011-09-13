@@ -17,7 +17,7 @@
 
       Popcorn.getScript( resource + "js", function() {
         scriptLoaded = true;
-      }); 
+      });
 
     } else {
       scriptLoaded = true;
@@ -37,23 +37,6 @@
       head.insertBefore( css, head.firstChild );
     }
   };
-
-  if ( !window.google ) {
-
-    Popcorn.getScript( "http://www.google.com/jsapi", function() {
-
-      google.load( "feeds", "1", {
-
-        callback: function () {
-
-          dynamicFeedLoad();              
-        }
-      });
-    });
-
-  } else {
-    dynamicFeedLoad();
-  }
 
   /**
    * googlefeed popcorn plug-in
@@ -86,9 +69,9 @@
         target = document.getElementById( options.target ),
     initialize = function() {
       //ensure that the script has been loaded
-      if ( !scriptLoaded ) {
+      if ( !scriptLoaded || !window.GFdynamicFeedControl ) {
         setTimeout( function () {
-          initialize(); 
+          initialize();
         }, 5 );
       } else {
         // Create the feed control using the user entered url and title
@@ -117,9 +100,40 @@
     }
     target && target.appendChild( newdiv );
 
-    initialize();
-    
     return {
+      /**
+       * @member webpage
+       * The setup function will be executed when a googlefeed plugin is created.
+       */
+      _setup: function( options ) {
+
+        if ( !window.google ) {
+
+          Popcorn.getScript( "http://www.google.com/jsapi", function() {
+
+            var readyCheck = function() {
+
+      				if ( window.google ) {
+      					google.load( "feeds", "1", {
+
+									callback: function () {
+
+										dynamicFeedLoad();
+
+									}
+	            	});
+	          	} else {
+	          		setTimeout( readyCheck, 10 );
+	          	}
+          	};
+          	readyCheck();
+
+          });
+
+        }
+
+        initialize();
+      },
       /**
        * @member webpage
        * The start function will be executed when the currentTime
@@ -153,32 +167,32 @@
     },
     options: {
       start: {
-        elem: "input", 
-        type: "text", 
-        label: "In" 
+        elem: "input",
+        type: "text",
+        label: "In"
       },
-      end: { 
-        elem: "input", 
-        type: "text", 
-        label: "Out" 
+      end: {
+        elem: "input",
+        type: "text",
+        label: "Out"
       },
       target: "feed-container",
-      url: { 
-        elem: "input", 
-        type: "text", 
-        label: "url" 
+      url: {
+        elem: "input",
+        type: "text",
+        label: "url"
       },
-      title: { 
-        elem: "input", 
-        type: "text", 
-        label: "title" 
+      title: {
+        elem: "input",
+        type: "text",
+        label: "title"
       },
       orientation: {
-        elem: "select", 
-        options: [ "Vertical","Horizontal" ], 
-        label: "orientation" 
+        elem: "select",
+        options: [ "Vertical","Horizontal" ],
+        label: "orientation"
       }
     }
   });
-  
+
 })( Popcorn );
