@@ -53,8 +53,6 @@ var onYouTubePlayerReady;
 
   var abs = Math.abs;
 
-  Popcorn.getScript( "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" );
-
   // Extract the id from a web url
   function extractIdFromUrl( url ) {
     if ( !url ) {
@@ -159,6 +157,7 @@ var onYouTubePlayerReady;
   };
 
   Popcorn.youtube = function( elementId, url, options ) {
+    !window.swfobject && Popcorn.getScript( "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" );
     return new Popcorn.youtube.init( elementId, url, options );
   };
 

@@ -179,8 +179,9 @@
   };
 
   Popcorn.vimeo = function( mediaId, list, options ) {
+  	!global.swfobject && Popcorn.getScript( "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" );
     return new Popcorn.vimeo.init( mediaId, list, options );
-  };
+	};
 
   Popcorn.vimeo.onLoad = function( playerId ) {
     var player = registry[ playerId ];
@@ -196,8 +197,6 @@
 
     player.dispatchEvent( "load" );
   };
-
-  Popcorn.getScript( "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" );
 
   // A constructor, but we need to wrap it to allow for "static" functions
   Popcorn.vimeo.init = (function() {
