@@ -179,7 +179,7 @@
   };
 
   Popcorn.vimeo = function( mediaId, list, options ) {
-  	!global.swfobject && Popcorn.getScript( "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" );
+    !global.swfobject && Popcorn.getScript( "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" );
     return new Popcorn.vimeo.init( mediaId, list, options );
 	};
 

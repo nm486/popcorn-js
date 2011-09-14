@@ -326,7 +326,7 @@
   }
 
   Popcorn.soundcloud = function( containerId, src, options ) {
-  	!hasAllDependencies() && loadScripts();
+    !hasAllDependencies() && loadScripts();
     return new Popcorn.soundcloud.init( containerId, src, options );
   };
 

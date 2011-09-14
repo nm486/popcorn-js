@@ -130,16 +130,16 @@ var googleCallback;
 
     return {
 
-    	_setup: function() {
+      _setup: function() {
 
-    		// if this is the firest time running the plugins
-    		// call the function that gets the script
-				if (!_mapFired) {
-					loadMaps();
-				}
+        // if this is the firest time running the plugins
+        // call the function that gets the script
+        if (!_mapFired) {
+          loadMaps();
+        }
 
-				isMapReady();
-    	},
+        isMapReady();
+      },
 
       /**
        * @member webpage

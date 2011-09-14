@@ -113,20 +113,20 @@
 
             var readyCheck = function() {
 
-      				if ( window.google ) {
-      					google.load( "feeds", "1", {
+              if ( window.google ) {
+                google.load( "feeds", "1", {
 
-									callback: function () {
+                  callback: function () {
 
-										dynamicFeedLoad();
+                    dynamicFeedLoad();
 
-									}
-	            	});
-	          	} else {
-	          		setTimeout( readyCheck, 10 );
-	          	}
-          	};
-          	readyCheck();
+                  }
+                });
+              } else {
+                setTimeout( readyCheck, 10 );
+              }
+            };
+            readyCheck();
 
           });
 
