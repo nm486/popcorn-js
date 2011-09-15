@@ -601,7 +601,7 @@ test("mute", function() {
 
 });
 
-test( "Popcorn.stop", function() {
+test( "Popcorn.p.stop", function() {
 
   var $pop = Popcorn( "#video" ),
       count = 0,

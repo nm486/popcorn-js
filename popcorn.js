@@ -1145,6 +1145,7 @@
       return this;
     },
 
+    // set currentTime to 0 and pause playback of the media
     stop: function() {
 
       return this.currentTime( 0 ).pause();
