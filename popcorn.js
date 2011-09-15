@@ -1143,6 +1143,11 @@
     timeUpdate: function( event ) {
       Popcorn.timeUpdate.call( null, this, event );
       return this;
+    },
+
+    stop: function() {
+
+      return this.currentTime( 0 ).pause();
     }
   });
 

@@ -601,6 +601,41 @@ test("mute", function() {
 
 });
 
+test( "Popcorn.stop", function() {
+
+  var $pop = Popcorn( "#video" ),
+      count = 0,
+      expects = 4;
+
+  expect( expects );
+
+  function plus() {
+    if ( ++count === expects ) {
+      start();
+      $pop.removePlugin( "exec" );
+    }
+  }
+
+  stop( 8000 );
+
+  ok( $pop.stop, "stop is a method of the $pop instance" );
+  plus();
+
+  equals( typeof $pop.stop, "function", "$pop.stop is a function" );
+  plus();
+
+  $pop.exec( 4, function() {
+  	$pop.stop();
+
+  	equals( $pop.currentTime(), 0, "currentTime is 0" );
+  	plus();
+  	equals( $pop.media.paused, true, "The media is paused" );
+  	plus();
+  });
+
+  $pop.currentTime( 3 ).play();
+
+});
 
 module("Popcorn Static Methods");
 
@@ -3470,7 +3505,7 @@ test("Parsing Handler - References unavailable plugin", function() {
       start();
       // clean up added events after tests
       clearInterval( interval );
-      poppercore.removePlugin( "parserTest" );
+      poppercore.removePlugin( "parserTest" ).stop();
     }
   }
 
@@ -3648,6 +3683,7 @@ test("Parser Support", function() {
       start();
 
       Popcorn.removePlugin( "testAudioParser" );
+      audiocorn.stop();
     }
   }
 
