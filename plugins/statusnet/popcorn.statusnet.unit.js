@@ -1,7 +1,7 @@
 test("Popcorn Status.NET Plugin", function () {
   
   var popped = Popcorn("#video"),
-    expects = 7,
+    expects = 4,
     count = 0;
   
   expect(expects);
@@ -26,7 +26,7 @@ test("Popcorn Status.NET Plugin", function () {
   .statusnet({
     target  : "subscribediv",
     type    : "SUBSCRIBE",
-    username: "nm486"
+    username: "nm486",
     start   : 2,
     end     : 6
   } )
@@ -60,6 +60,7 @@ test("Popcorn Status.NET Plugin", function () {
     ok ( document.getElementById( "connectdiv" ).innerHTML, "connectdiv is not empty at 0:04 (expected)" );
     plus();
   });
+  
   
 });
 
