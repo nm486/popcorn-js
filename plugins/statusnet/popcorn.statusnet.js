@@ -1,10 +1,12 @@
 /**
-  *  Status.Net Popcorn.js plugin 
+  * Status.Net Popcorn.js plugin 
+  * WARNING: As of December 11, 2011, this plugin works ONLY if you have an instance of status.NET running on your server.
+  * Namely, you need <script>SN.init('YOUR_OAUTH_CONSUMER_KEY', 'YOUR_OAUTH_CONSUMER_SECRET');</script> in your HTML
   * Places Status.Net widgets inside target div 
-  *  Options parameter will need type, target, start and end time specified
+  * Options parameter will need type, target, start and end time specified
   * Optional parameter is username
   *  
-  * Type: the kind of Status.Net widget to be loaded - Status.Net currently supports Hovercards, Subscribe buttons, and Connect buttons
+  * Type: type of Status.NET widget to be loaded - Status.Net currently supports Hovercards, Subscribe buttons, and Connect buttons
   * Target: the id of the div where the Status.Net widget will be loaded into
   * Start: the start time (in seconds) when this plugin will execute
   * End: the end time (in seconds) when the Status.Net widget will becpme hidden
@@ -34,23 +36,12 @@
    * username: the username of the Status.Net user in which the Subscribe Button will be based on 
    */
   var targetDiv;
-  
-  function enableSNPlugin(mode, div, username) {
-    SN.ready(function() {
-      var create = {
-        "HOVERCARD": function() { SN.hovercards('#' + div); },
-        "SUBSCRIBE": function() { SN.subscribeButton(div, username); },
-        "CONNECT":   function() { SN.connectButton(div); }
-      }
-      create[mode] && create[mode]();
-    });
-  }
-  
+ 
   Popcorn.plugin( "statusnet", {
     manifest:{
       about:{
         name   : "Popcorn StatusNet Plugin",
-        version: "0.1",
+        version: "0.2",
         author : "Stanley Tsang",
         website: "nm486.wordpress.com"
       },    
@@ -65,9 +56,16 @@
     },
     
     _setup: function(options) {
-      
-      targetDiv = document.getElementById( options.target );    
-      
+      // Set the target div's display to none, otherwise we see it right off the bat
+      document.getElementById( options.target ).style.display = "none";
+      SN.ready(function() {
+        var create = {
+          "HOVERCARD": function() { SN.hovercards('#' + options.target); },
+          "SUBSCRIBE": function() { SN.subscribeButton(options.target, options.username); },
+          "CONNECT":   function() { SN.connectButton(options.target); }
+        }
+        create[options.type] && create[options.type]();
+      });
     },
     
     /**
@@ -77,7 +75,7 @@
     * options variable
     */
     start: function( event, options ){
-      enableSNPlugin(options.type, options.target, options.username || "");
+      document.getElementById( options.target ).style.display = "";
     },
     /**
     * @member statusnet
@@ -87,8 +85,11 @@
     */
     end: function( event, options ){
       document.getElementById( options.target ).style.display = "none";
+    },
+    _teardown: function( options ){
+      var target = document.getElementById( options.target );
+      target && target.removeChild( options._container );
     }
-    
   });
   
 })(Popcorn);

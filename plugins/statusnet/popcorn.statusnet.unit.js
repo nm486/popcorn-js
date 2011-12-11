@@ -1,7 +1,7 @@
 test("Popcorn Status.NET Plugin", function () {
   
   var popped = Popcorn("#video"),
-    expects = 4,
+    expects = 7,
     count = 0;
   
   expect(expects);
