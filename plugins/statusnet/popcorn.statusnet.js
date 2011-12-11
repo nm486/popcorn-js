@@ -2,6 +2,8 @@
   * Status.Net Popcorn.js plugin 
   * WARNING: As of December 11, 2011, this plugin works ONLY if you have an instance of status.NET running on your server.
   * Namely, you need <script>SN.init('YOUR_OAUTH_CONSUMER_KEY', 'YOUR_OAUTH_CONSUMER_SECRET');</script> in your HTML
+  * You'll also need to point to your status.NET api.js file in the HTML:
+  * Example - <script type='text/javascript' src='http://hungryeel.com/statusnet/js/api.js' ></script> 
   * Places Status.Net widgets inside target div 
   * Options parameter will need type, target, start and end time specified
   * Optional parameter is username
